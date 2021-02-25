@@ -1,6 +1,6 @@
 # Candidatura à vaga de dev @ Vizir
 
-Hey! Meu GitHub estava meio às traças quando apliquei pra vaga, aí pensei: por que não fazer um site pra aplicar pra vaga de desenvolvimento? :)
+Hey! Meu GitHub estava meio às traças quando apliquei pra vaga, aí pensei: por que não fazer um site pra que tenha algo pra se ver? :)
 
 ## E o Python?
 
