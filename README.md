@@ -4,7 +4,9 @@ Hey! Meu GitHub estava meio às traças quando apliquei pra vaga, aí pensei: po
 
 ## E o Python?
 
-Na minha candidatura, destaquei que me dou melhor com Python. Mas o GitHub Pages só comporta páginas estáticas, e nadinha de server-side também. :( Vou fazer o que posso com HTML5, CSS3 e Vanilla JS!
+Na minha candidatura, destaquei que me dou melhor com Python. Mas o GitHub Pages só comporta páginas estáticas, e nadinha de server-side também. :(
+
+Vou fazer o que posso com HTML5, CSS3 e Vanilla JS!
 
 ## These are not bugs, these are features
 
