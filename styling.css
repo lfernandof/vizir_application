@@ -1,4 +1,18 @@
+/* Background */
+/* ===================================== */
 body{
-    background-color: crimson;
-    margin:0;
+    background-image: linear-gradient(to bottom, #0c343dff,rgb(197, 0, 76) 130%);
+    background-attachment:fixed;
+    height:100%;
 }
+
+/* Fontes */
+/* ===================================== */
+
+.font-display{
+    font-family: 'Poiret One';
+  }
+  
+  .font-normal{
+    font-family: 'Abel';
+  }
