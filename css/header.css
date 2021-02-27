@@ -1,6 +1,6 @@
 /*Header*/
 .header{
-background-color: white;
+    background-color: white;
 }
 
 /*Navbar*/
@@ -29,6 +29,6 @@ background-color: white;
 .menu{
     > span { /*Só aplica aos spans que são filhos diretos de elementos da classe .menu*/
         display: block;
-        color: red;
+        background-color: red;
     }
 }
