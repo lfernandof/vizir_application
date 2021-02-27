@@ -62,9 +62,14 @@ html{
 }
 
 /*Hamburger-Menu*/
-.menu{
-  > span { /*Só aplica aos spans que são filhos diretos de elementos da classe .menu*/
-      display: block;
-      background-color: red;
-  }
+
+a.menu > span{
+  display: block;
+  background-color: yellowgreen;
 }
+
+/*
+.menu{ Só aplica aos spans que são filhos diretos de elementos da classe .menu
+    display: block;
+    
+  }*/
