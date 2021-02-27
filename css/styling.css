@@ -66,6 +66,12 @@ html{
 a.menu > span{
   display: block;
   background-color: yellowgreen;
+  width: 26px;
+  height: 2px;
+}
+
+a.menu>span::not(:last-child){
+  margin-bottom: 3px;
 }
 
 /*
