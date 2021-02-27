@@ -4,6 +4,18 @@ body{
     background-image: linear-gradient(to bottom, #0c343dff,rgb(197, 0, 76) 130%);
     background-attachment:fixed;
     height:100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===================================== */
+html{
+  font-size:100%; /* Ajuste do tamanho da fonte mais fácil pro usuário */
+  box-sizing: border-box; /* Padding incluso na width */
+}
+
+*,*::before,*::after{
+  box-sizing: inherit; /* Herdar o box-sizing do HTML*/
 }
 
 /* Fontes */
