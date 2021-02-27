@@ -1,0 +1,34 @@
+/*Header*/
+.header{
+
+}
+
+/*Navbar*/
+.flex{
+    display: flex;
+  }
+  
+  .jc-space-between{
+    justify-content: space-between;
+  }
+  
+  .jc-center{
+    justify-content: center;
+  }
+  
+  .ai-center{
+    align-items: center;
+  }
+
+/*Logo*/
+.logo{
+
+}
+
+/*Hamburger-Menu*/
+.menu{
+    > span { /*Só aplica aos spans que são filhos diretos de elementos da classe .menu*/
+        display: block;
+        color: red;
+    }
+}
