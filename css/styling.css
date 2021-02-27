@@ -44,6 +44,10 @@ html{
   display: flex;
 }
 
+nav{
+  padding: 2em;
+}
+
 .jc-space-between{
   justify-content: space-between;
 }
