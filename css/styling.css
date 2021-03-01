@@ -114,7 +114,7 @@ a.menu>span:not(:last-child){
   margin-bottom: 4px;
 }
 
-nav:not(.open) >a.menu:hover > span{
+header:not(.open)>nav >a.menu:hover > span{
   transition: width .2s;
   width: 30px;
 }
@@ -124,27 +124,16 @@ div.header-links > a:not(:last-child){
 }
 
 /*Os links que surgem com o hamburger*/
-header > div:not(.has-fade){
-  animation: slide-down .2s ease-out;
-}
-header > div.has-fade{
-  animation: slide-up .2s ease-out;
-}
-.has-fade{
-  max-height: 0;
-  overflow: hidden;
-}
-
 .header-links{
+  background-color: white;
   padding: 1rem;
   margin: 1rem;
   text-align: center;
   border-radius: 3px;
-  z-index: 1;
+  z-index: 1;;
 }
 
 .header-links > a{
-  color: white;
   display: block;
   padding: .625rem;
   width: 100%;
@@ -155,40 +144,65 @@ header > div.has-fade{
   transition: 0.6s;
 }
 
-/*Animação dos links surgindo*/
-@keyframes slide-down{
+ header.open > .overlay{
+  animation: fade-in 0.3s ease-in-out forwards;
+}
+
+.overlay{
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top:5.6rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(tomato,transparent);
+}
+
+/*Animação do overlay*/
+@keyframes fade-in{
   from{
+    visibility: hidden;
     opacity: 0;
-    transform: translateY(-100%);
   }
   to{
+    visibility: visible;
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-@keyframes slide-up{
+.fade-in{
+  animation: fade-in 0.3s ease-in-out forwards;
+}
+
+@keyframes fade-out{
   from{
+    visibility: visible;
     opacity: 1;
-    transform: translateY(0);
+  }
+  99%{
+    opacity: 0;
   }
   to{
-    opacity: 0;
-    transform: translateY(-100%);
+    visibility: hidden;
   }
 }
 
-/*Para a animação do hamburger*/
+.fade-out{
+  animation: fade-out 0.3s ease-in-out forwards;
+}
 
-nav.open > a.menu > span:first-child{
+/*Para a animação do hamburger e overlay*/
+
+header.open > nav > a.menu > span:first-child{
   transform: rotate(45deg);
 }
 
-nav.open > a.menu > span:nth-child(2){
+header.open > nav > a.menu > span:nth-child(2){
   opacity: 0;
 }
 
-nav.open > a.menu > span:last-child{
+header.open > nav > a.menu > span:last-child{
   transform: rotate(-45deg);
 }
 /* Responsividade */
