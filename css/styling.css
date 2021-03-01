@@ -98,6 +98,7 @@ a.menu > span{
   background-color: white;
   height: 3px;
   transition: all .2s ease; 
+  transform-origin: center left;
 }
 
 a.menu >span:not(:nth-child(2)){
@@ -112,7 +113,7 @@ a.menu>span:not(:last-child){
   margin-bottom: 4px;
 }
 
-a.menu:hover > span{
+a.menu:not(.open):hover > span{
   transition: width .2s;
   width: 30px;
 }
@@ -121,7 +122,23 @@ div.header-links > a:not(:last-child){
   margin-right: 2em;
 }
 
-/* Responsivo */
+/*Pro */
+
+
+/*Para a animação do hamburger*/
+
+a.open > span:first-child{
+ transform: rotate(45deg); 
+}
+
+a.open > span:nth-child(2){
+  opacity: 0;
+ }
+
+ a.open > span:last-child{
+  transform: rotate(-45deg);
+ }
+/* Responsividade */
 /* ===================================== */
 @media screen and (max-width:600px){
   .hide-from-mobile{
