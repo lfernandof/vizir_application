@@ -131,7 +131,9 @@ div.header-links > a:not(:last-child){
   margin: 1rem;
   text-align: center;
   border-radius: 3px;
-  z-index: 1;;
+  position: absolute;
+  width: calc(100% - 2rem);
+  z-index: 1;
 }
 
 .header-links > a{

@@ -1,6 +1,5 @@
 const btnHamburger = document.querySelector('a.menu');
 const header = document.querySelector('header');
-const headerLinks = document.querySelector('.header-links');
 const overlay = document.querySelector('.overlay');
 console.log(btnHamburger)
 
@@ -17,5 +16,24 @@ btnHamburger.addEventListener('click', function () {
         overlay.classList.add('fade-in');
         overlay.classList.remove('fade-out');
         console.log('Now there is an open class')
+    }
+})
+
+// Coloca um ">" na frente do conteúdo do item do menu que você está dando um mouseover
+const possibleLinks = document.querySelectorAll('.header-links a');
+const linksArray = Array.from(possibleLinks);
+
+//Bubbling no body para adicionar ou remover '>' baseado no mouseEnter ou mouseLeave
+document.addEventListener('mouseover', event => {
+    if (linksArray.includes(event.target)) {
+        formerTextContent = event.target.textContent;
+        event.target.textContent = '> ' + formerTextContent;
+        event.target.addEventListener('mouseleave', e => {
+            //Restaura o texto anterior ao sair
+            event.target.textContent = formerTextContent;
+        })
+    }
+    else {
+        return
     }
 })
