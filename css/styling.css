@@ -1,7 +1,8 @@
 /* Background */
 /* ===================================== */
 body{
-    background-image: linear-gradient(to bottom, #0c343dff,rgb(197, 0, 76) 130%);
+    /*background-image: linear-gradient(to bottom, #0c343dff,rgb(197, 0, 76) 130%);*/
+    background-color: darkgreen;
     background-attachment:fixed;
     height:100%;
     margin: 0;
@@ -69,7 +70,7 @@ body{
 }
 
 nav{
-  padding: 1em;
+  padding: .8em;
 }
 
 .jc-space-between{
@@ -135,7 +136,7 @@ div.header-links > a:not(:last-child){
 
 .header-links > a{
   display: block;
-  padding: .625rem;
+  padding: 1.625rem;
   width: 100%;
 }
 
@@ -144,8 +145,9 @@ div.header-links > a:not(:last-child){
   transition: 0.6s;
 }
 
- header.open > .overlay{
-  animation: fade-in 0.3s ease-in-out forwards;
+/* Overlay pra abertura do menu */
+header > nav{
+  background-color: #0c343dff;
 }
 
 .overlay{

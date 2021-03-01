@@ -1,5 +1,5 @@
-const btnHamburger = document.querySelector("a.menu");
-const header = document.querySelector("header");
+const btnHamburger = document.querySelector('a.menu');
+const header = document.querySelector('header');
 const headerLinks = document.querySelector('.header-links');
 const overlay = document.querySelector('.overlay');
 console.log(btnHamburger)
