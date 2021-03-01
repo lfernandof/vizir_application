@@ -113,7 +113,7 @@ a.menu>span:not(:last-child){
   margin-bottom: 4px;
 }
 
-a.menu:not(.open):hover > span{
+nav:not(.open) >a.menu:hover > span{
   transition: width .2s;
   width: 30px;
 }
@@ -127,6 +127,20 @@ div.header-links > a:not(:last-child){
 
 /*Para a animação do hamburger*/
 
+nav.open > a.menu > span:first-child{
+  transform: rotate(45deg);
+}
+
+nav.open > a.menu > span:nth-child(2){
+  opacity: 0;
+}
+
+nav.open > a.menu > span:last-child{
+  transform: rotate(-45deg);
+}
+
+/*
+
 a.open > span:first-child{
  transform: rotate(45deg); 
 }
@@ -138,6 +152,8 @@ a.open > span:nth-child(2){
  a.open > span:last-child{
   transform: rotate(-45deg);
  }
+ */
+
 /* Responsividade */
 /* ===================================== */
 @media screen and (max-width:600px){
