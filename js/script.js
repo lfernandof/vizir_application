@@ -1,20 +1,30 @@
 const btnHamburger = document.querySelector('a.menu');
+const documentBody = document.querySelector('body');
 const header = document.querySelector('header');
 const overlay = document.querySelector('.overlay');
-console.log(btnHamburger)
+const fadingElements = document.querySelectorAll('.has-fade');
+
 
 btnHamburger.addEventListener('click', function () {
     console.log(overlay);
     console.log(btnHamburger.classList)
     if (header.classList.contains('open')) { //fechar o hamburger menu
+        documentBody.classList.remove('no-scroll');
         header.classList.remove('open');
-        overlay.classList.add('fade-out');
-        overlay.classList.remove('fade-in')
+        fadingElements.forEach(function (element) {
+            element.classList.add('fade-out');
+            element.classList.remove('fade-in')
+        })
     }
     else { //abrir o hamburger
+        documentBody.classList.add('no-scroll');
         header.classList.add('open');
-        overlay.classList.add('fade-in');
-        overlay.classList.remove('fade-out');
+        fadingElements.forEach(function (element) {
+            element.classList.add('fade-in');
+            element.classList.remove('fade-out')
+        });
+        //        overlay.classList.add('fade-in');
+        //        overlay.classList.remove('fade-out');
         console.log('Now there is an open class')
     }
 })

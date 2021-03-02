@@ -2,7 +2,7 @@
 /* ===================================== */
 body{
     /*background-image: linear-gradient(to bottom, #0c343dff,rgb(197, 0, 76) 130%);*/
-    background-color: darkgreen;
+    background-color: white;
     background-attachment:fixed;
     height:100%;
     margin: 0;
@@ -154,13 +154,21 @@ header > nav{
 
 .overlay{
   opacity: 0;
-  visibility: hidden;
   position: absolute;
   top:5.6rem;
   right: 0;
   bottom: 0;
   left: 0;
   background-image: linear-gradient(tomato,transparent);
+}
+
+.no-scroll{
+  overflow: hidden;
+}
+
+/*Pra colocar o surgimento do menu acoplado ao botão*/
+.has-fade{
+  visibility: hidden;
 }
 
 /*Animação do overlay*/
