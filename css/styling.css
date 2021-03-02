@@ -31,7 +31,6 @@ a,a:visited,a:hover{
 
 body{
   font-family: 'Abel';
-  color: white;
 }
 
 .font-display{
@@ -159,9 +158,10 @@ header > nav{
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: linear-gradient(tomato,transparent);
+  background-image: linear-gradient(#ff6347,transparent);
 }
 
+/*Impedindo scroll quando o hamburger está aberto*/
 .no-scroll{
   overflow: hidden;
 }
@@ -229,4 +229,32 @@ header.open > nav > a.menu > span:last-child{
   .hide-from-desktop{
     display:none;
   }
+}
+
+/* Corpo */
+/* ===================================== */
+div.intro{
+  position: relative;
+  background-image: url('../img/shapes4.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 17rem;
+}
+
+div.intro::before{
+  content: "";
+  height: 100%;
+  width: 75%;
+  position:absolute;
+  background-image: url('../img/eu_hangloose-nobg.png');
+  background-size: contain;
+  transform: scale(1.1);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.fluid-image{
+  object-fit:cover;
+  object-position: center center;
 }
