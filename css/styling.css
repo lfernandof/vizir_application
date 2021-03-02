@@ -29,12 +29,21 @@ a,a:visited,a:hover{
 /* Fontes */
 /* ===================================== */
 
+/* Padrão é a Abel, importada já no HTML para vir antes*/
 body{
   font-family: 'Abel';
 }
 
+/*Depois, importando as auxiliares: Poiret One e Bebas Neue*/
+
 .font-display{
   font-family: 'Poiret One';
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Six+Caps&display=swap');
+
+.font-dense{
+  font-family: 'Bebas Neue', cursive;
 }
 
 /* Tamanhos */
@@ -125,9 +134,8 @@ div.header-links > a:not(:last-child){
 
 /*Os links que surgem com o hamburger*/
 .header-links{
-  background-color: white;
   padding: 1rem;
-  margin: 1rem;
+  margin-top: 7rem;
   text-align: center;
   border-radius: 3px;
   position: absolute;
@@ -136,14 +144,16 @@ div.header-links > a:not(:last-child){
 }
 
 .header-links > a{
+  color: antiquewhite;
   display: block;
   padding: 1.625rem;
   width: 100%;
+  font-size: 2.1rem;
 }
 
 .header-links > a:hover{
-  color:deeppink;
-  transition: 0.6s;
+  color: #0c343dff;
+  transition: 0.7s;
 }
 
 /* Overlay pra abertura do menu */
@@ -158,8 +168,9 @@ header > nav{
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: linear-gradient(#ff6347,transparent);
-}
+  background-color: #ff4d2d;
+/*  background-image: linear-gradient(#ff6347,transparent);
+*/}
 
 /*Impedindo scroll quando o hamburger está aberto*/
 .no-scroll{
@@ -233,20 +244,22 @@ header.open > nav > a.menu > span:last-child{
 
 /* Corpo */
 /* ===================================== */
-div.intro{
+div.intro-img{
   position: relative;
   background-image: url('../img/shapes4.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
   min-height: 17rem;
+  z-index: -1;
 }
 
-div.intro::before{
+div.intro-img::before{
   content: "";
   height: 100%;
-  width: 75%;
+  width: 90%;
   position:absolute;
+  z-index: -1;
   background-image: url('../img/eu_hangloose-nobg.png');
   background-size: contain;
   transform: scale(1.1);
@@ -257,4 +270,20 @@ div.intro::before{
 .fluid-image{
   object-fit:cover;
   object-position: center center;
+}
+
+.intro-text{
+  text-align: center;
+}
+
+.intro-text > h1{
+  font-weight: 1200;
+  font-size: 2.6rem;
+  line-height: 1.1;
+}
+
+.intro-text > p{
+  display: block;
+  font-weight: 200;
+  margin: 2rem;
 }

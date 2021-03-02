@@ -19,6 +19,17 @@ btnHamburger.addEventListener('click', function () {
     else { //abrir o hamburger
         documentBody.classList.add('no-scroll');
         header.classList.add('open');
+        //função pra verificar o botão ESC
+        document.addEventListener("keydown", (e) => {
+            if (e.key == 'Escape') {
+                documentBody.classList.remove('no-scroll');
+                header.classList.remove('open');
+                fadingElements.forEach(function (element) {
+                    element.classList.add('fade-out');
+                    element.classList.remove('fade-in')
+                })
+            }
+        });
         fadingElements.forEach(function (element) {
             element.classList.add('fade-in');
             element.classList.remove('fade-out')
