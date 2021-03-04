@@ -15,7 +15,7 @@ window.onload = function () {
         loaderDiv = document.getElementById('loader-div');
         console.log('removendo...');
         loaderDiv.remove()
-    }, 3000);
+    }, 1000);
 };
 
 // Função nomeada para não criar duplicata por causa de múltiplas chamadas do mesmo EventListener, que ocorrem por consequência de abertura e fechamento do hamburger
