@@ -43,7 +43,59 @@ function drawMatrix(matrix, offset) {
     });
 };
 
-//makePiece(type):
+//makePiece(type): recebe o tipo de peça e retorna a matriz correspondente
+function makePiece(type) {
+    switch (type) {
+        case 'T':
+            return [
+                [0, 0, 0],
+                [1, 1, 1],
+                [0, 1, 0],
+            ];
+        case 'L':
+            return [
+                [0, 1, 0],
+                [0, 1, 0],
+                [0, 1, 1],
+            ];
+        case 'J':
+            return [
+                [0, 1, 0],
+                [0, 1, 0],
+                [1, 1, 0],
+            ];
+        case 'I':
+            return [
+                [0, 1, 0, 0],
+                [0, 1, 0, 0],
+                [0, 1, 0, 0],
+                [0, 1, 0, 0],
+            ];
+        case 'O':
+            [
+                [1, 1],
+                [1, 1],
+            ];
+        case 'S':
+            return [
+                [0, 1, 1],
+                [1, 1, 0],
+                [0, 0, 0],
+            ];
+        case 'Z':
+            return [
+                [1, 1, 0],
+                [0, 1, 1],
+                [0, 0, 0],
+            ];
+        default:
+            return [
+                [0, 0, 0],
+                [1, 1, 1],
+                [0, 1, 0],
+            ];
+    }
+}
 
 
 //draw: função genérica para desenhar no canvas
@@ -89,7 +141,7 @@ function playerDrop() {
     if (collide(arena, player)) {//se colidiu
         player.pos.y--; //diminui em um a posição
         merge(arena, player); //e registra a peça
-        player.pos.y = 0;//retornando a 0 pras próximas iterações
+        playerReset();
     }
     dropCounter = 0;
 }
@@ -101,6 +153,16 @@ function playerMove(step) {
         player.pos.x -= step;
     }
 
+}
+
+//playerReset:
+function playerReset() {
+    const availablePieces = 'ILJOTSZ';
+    //    const availablePieces = ['J', 'L', 'I', 'S', 'Z', 'O', 'T'];
+    console.log(availablePieces[availablePieces.length * Math.random() | 0]);
+    player.matrix = makePiece(availablePieces[availablePieces.length * Math.random() | 0]);
+    player.pos.y = 0;
+    player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
 }
 
 //rotate: rotaciona a estrutura matrix, que representa a maneira como a peça se posiciona no canvas
