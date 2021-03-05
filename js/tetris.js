@@ -2,10 +2,6 @@ const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 context.scale(20, 20); //Aumenta o tamanho do que é desenhado no canvas por um fator de 20 nas dimensões x e y
 
-//Para teste da ferramenta de desenho 2d neste contexto, deixar o canvas todo preto
-context.fillStyle = '#000';
-context.fillRect(0, 0, canvas.width, canvas.height);
-
 //Os formatos serão desenhados a partir de uma matriz 3x3:
 //Cada formato vai ser contido, então, em um grid. Por exemplo, a peça que tem formato de T:
 const matrix = [
@@ -35,11 +31,28 @@ function drawMatrix(matrix, offset) {
 
 //draw: função genérica para desenhar no canvas
 function draw() {
+    //Deixar o canvas todo preto, o que apaga as posições anteriores da mesma peça
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, canvas.width, canvas.height);
     drawMatrix(player.matrix, player.pos)
 }
 
-//update: função que 
-function update() {
+//update: a função update faz duas ações. A primeira é a de chamar a função draw() e desenhar a peça nas coordenadas atuais do ponteiro no canvas. A seguinte, é usar o método requestAnimationFrame() para preparar a próxima animação através do callback de uma função, que é recursivamente a própria update(): uma animação sucede a outra sem fim para o jogo, continuamente.
+
+let lastTime = 0;
+
+let dropCounter = 0;
+let dropInterval = 1000; //1000ms
+
+function update(time = 0) {
+    const deltaTime = time - lastTime;
+    lastTime = time;
+    dropCounter += deltaTime; //incrementalmente aumenta dropCounter
+    if (dropCounter > dropInterval) { //se o número de timesteps deu mais que o tempo neste dropInterval
+        player.pos.y++; //a peça "cai" uma posição no tabuleiro
+        dropCounter = 0;
+    }
+    console.log(deltaTime);
     draw();
     requestAnimationFrame(update);
 }
