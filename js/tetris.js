@@ -1,6 +1,8 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 context.scale(20, 20); //Aumenta o tamanho do que é desenhado no canvas por um fator de 20 nas dimensões x e y
+const colorMap = [null, 'red', 'green', 'blue', 'yellow', 'violet', 'cyan', 'orange'];
+var playerScore = 0;
 
 //Os formatos serão desenhados a partir de uma matriz 3x3:
 //Cada formato vai ser contido, então, em um grid. Por exemplo, a peça que tem formato de T:
@@ -25,10 +27,29 @@ const arena = createMatrix(12, 20);
 console.log(arena);
 console.table(arena);
 
+//arenaSweep: limpa a linha que for completa. Isto é feito checando, linha a linha (loop em y), se há algum elemento nulo nela (loop em x); se houver, segue para a próxima linha (continue outer), senão, transforma aquela linha em zeros
+function arenaSweep() {
+    let rowCounter = 1;
+    outer: for (let y = arena.length - 1; y > 0; --y) {
+        for (let x = 0; x < arena[y].length; ++x) {
+            if (arena[y][x] == 0) {
+                continue outer;
+            }
+        }
+        //aqui, o método .splice() remove a linha y da arena, retorna ela; o método .fill(0) preenche essa linha com zeros, e essa nova linha de valores nulos é atribuída à variável row 
+        const row = arena.splice(y, 1)[0].fill(0);
+        //que ocupa o topo da arena
+        arena.unshift(row);
+        ++y;
+        playerScore += rowCounter * 10;
+        rowCounter *= 2;
+    }
+}
+
 //Player é uma estrutura que armazena a posição atual a partir do canto superior esquerdo (offset) e a peça atual (matrix)
 const player = {
-    pos: { x: 5, y: 5 },
-    matrix: matrix
+    pos: { x: 0, y: 0 },
+    matrix: null,
 }
 
 /*drawMatrix: função cujo input é a matriz que representa uma peça e o offset, que diz quão distante a peça está do canto superior direito (0,0). O output é o desenho dessa respectiva peça na posição desejada do canvas. */
@@ -36,7 +57,7 @@ function drawMatrix(matrix, offset) {
     matrix.forEach((row, y) => {
         row.forEach((value, x) => {
             if (value !== 0) {
-                context.fillStyle = 'red';
+                context.fillStyle = colorMap[value];
                 context.fillRect(x + offset.x, y + offset.y, 1, 1);
             }
         })
@@ -51,52 +72,47 @@ function makePiece(type) {
                 [0, 0, 0],
                 [1, 1, 1],
                 [0, 1, 0],
-            ];
+            ]
         case 'L':
             return [
-                [0, 1, 0],
-                [0, 1, 0],
-                [0, 1, 1],
+                [0, 2, 0],
+                [0, 2, 0],
+                [0, 2, 2],
             ];
         case 'J':
             return [
-                [0, 1, 0],
-                [0, 1, 0],
-                [1, 1, 0],
+                [0, 3, 0],
+                [0, 3, 0],
+                [3, 3, 0],
             ];
         case 'I':
             return [
-                [0, 1, 0, 0],
-                [0, 1, 0, 0],
-                [0, 1, 0, 0],
-                [0, 1, 0, 0],
+                [0, 4, 0, 0],
+                [0, 4, 0, 0],
+                [0, 4, 0, 0],
+                [0, 4, 0, 0],
             ];
         case 'O':
-            [
-                [1, 1],
-                [1, 1],
+            return [
+                [5, 5],
+                [5, 5],
             ];
         case 'S':
             return [
-                [0, 1, 1],
-                [1, 1, 0],
+                [0, 6, 6],
+                [6, 6, 0],
                 [0, 0, 0],
             ];
         case 'Z':
             return [
-                [1, 1, 0],
-                [0, 1, 1],
+                [7, 7, 0],
+                [0, 7, 7],
                 [0, 0, 0],
             ];
         default:
-            return [
-                [0, 0, 0],
-                [1, 1, 1],
-                [0, 1, 0],
-            ];
+            break;
     }
 }
-
 
 //draw: função genérica para desenhar no canvas
 function draw() {
@@ -135,13 +151,14 @@ function merge(arena, player) {
     });
 }
 
-//playerDrop: 
+//playerDrop: desce a peça em uma casa, caso não tenha colidido. Se colidiu, fixa ela no ponto onde colidiu.
 function playerDrop() {
     player.pos.y++;
     if (collide(arena, player)) {//se colidiu
         player.pos.y--; //diminui em um a posição
         merge(arena, player); //e registra a peça
         playerReset();
+        arenaSweep();
     }
     dropCounter = 0;
 }
@@ -155,14 +172,17 @@ function playerMove(step) {
 
 }
 
-//playerReset:
+//playerReset: seleciona uma nova peça aleatoriamente, gera a matriz correspondente com makePiece(), posiciona ela no topo e no centro da tela. Se ela colide logo ao ser criada, o jogo acaba.
 function playerReset() {
     const availablePieces = 'ILJOTSZ';
-    //    const availablePieces = ['J', 'L', 'I', 'S', 'Z', 'O', 'T'];
-    console.log(availablePieces[availablePieces.length * Math.random() | 0]);
     player.matrix = makePiece(availablePieces[availablePieces.length * Math.random() | 0]);
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
+    if (collide(arena, player)) { //se acontece uma colisão logo após o reset significa que o jogador perdeu
+        playerScore = 0;
+        rowCounter = 1;
+        arena.forEach(row => row.fill(0)); //limpa a arena
+    }
 }
 
 //rotate: rotaciona a estrutura matrix, que representa a maneira como a peça se posiciona no canvas
@@ -227,6 +247,8 @@ function update(time = 0) {
     }
     draw();
     requestAnimationFrame(update);
+    scoreCounter = document.getElementById('score');
+    scoreCounter.textContent = playerScore;
 }
 
 //Controlando os movimentos da peça com o teclado
@@ -249,6 +271,7 @@ document.addEventListener('keydown', event => {
 })
 
 //Teste
+playerReset();
 update();
 
 /* ================= Comentário sobre rotações
