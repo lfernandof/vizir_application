@@ -1,16 +1,22 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
+const canvasForNext = document.getElementById('board-nextpiece');
+const contextForNext = canvasForNext.getContext('2d');
 context.scale(20, 20); //Aumenta o tamanho do que é desenhado no canvas por um fator de 20 nas dimensões x e y
+contextForNext.scale(30, 30);
 const colorMap = [null, 'red', 'green', 'blue', 'yellow', 'violet', 'cyan', 'orange'];
 var playerScore = 0;
+var nextPiece = '';
+const availablePieces = 'ILJOTSZ';
+var currentPiece = availablePieces[availablePieces.length * Math.random() | 0]; //Sorteia qual a primeira peça
 
 //Os formatos serão desenhados a partir de uma matriz 3x3:
 //Cada formato vai ser contido, então, em um grid. Por exemplo, a peça que tem formato de T:
-const matrix = [
-    [0, 0, 0],
-    [1, 1, 1],
-    [0, 1, 0],
-]
+//const matrix = [
+//  [0, 0, 0],
+//  [1, 1, 1],
+//  [0, 1, 0],
+//]
 //A escolha por uma matriz nxn é para facilitar rotações a partir do centro (i,i), onde i é o valor intermediário entre [0,n].
 
 //createMatrix: função que gera a matriz que guarda a relação das peças que já foram depositadas na tela.
@@ -50,15 +56,16 @@ function arenaSweep() {
 const player = {
     pos: { x: 0, y: 0 },
     matrix: null,
+    matrixNext: null,
 }
 
 /*drawMatrix: função cujo input é a matriz que representa uma peça e o offset, que diz quão distante a peça está do canto superior direito (0,0). O output é o desenho dessa respectiva peça na posição desejada do canvas. */
-function drawMatrix(matrix, offset) {
-    matrix.forEach((row, y) => {
+function drawMatrix(givenMatrix, givenContext, offset) {
+    givenMatrix.forEach((row, y) => {
         row.forEach((value, x) => {
             if (value !== 0) {
-                context.fillStyle = colorMap[value];
-                context.fillRect(x + offset.x, y + offset.y, 1, 1);
+                givenContext.fillStyle = colorMap[value];
+                givenContext.fillRect(x + offset.x, y + offset.y, 1, 1);
             }
         })
     });
@@ -118,9 +125,13 @@ function makePiece(type) {
 function draw() {
     //Deixar o canvas todo preto, o que apaga as posições anteriores da mesma peça
     context.fillStyle = '#000';
+    contextForNext.fillStyle = '#000';
+    console.log(canvasForNext.width, canvasForNext.height);
+    contextForNext.fillRect(0, 0, canvasForNext.width, canvasForNext.height);
     context.fillRect(0, 0, canvas.width, canvas.height);
-    drawMatrix(arena, { x: 0, y: 0 });
-    drawMatrix(player.matrix, player.pos)
+    drawMatrix(arena, context, { x: 0, y: 0 }); //desenha a arena
+    drawMatrix(player.matrix, context, player.pos);//desenha a peça atual
+    drawMatrix(player.matrixNext, contextForNext, { x: 0, y: 0 });
 }
 
 //collide: colide a peça atual com a arena (bordas e outras peças já depositadas)
@@ -174,8 +185,9 @@ function playerMove(step) {
 
 //playerReset: seleciona uma nova peça aleatoriamente, gera a matriz correspondente com makePiece(), posiciona ela no topo e no centro da tela. Se ela colide logo ao ser criada, o jogo acaba.
 function playerReset() {
-    const availablePieces = 'ILJOTSZ';
-    player.matrix = makePiece(availablePieces[availablePieces.length * Math.random() | 0]);
+    player.matrix = makePiece(currentPiece);
+    nextPiece = availablePieces[availablePieces.length * Math.random() | 0];
+    player.matrixNext = makePiece(nextPiece);
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
     if (collide(arena, player)) { //se acontece uma colisão logo após o reset significa que o jogador perdeu
@@ -183,6 +195,7 @@ function playerReset() {
         rowCounter = 1;
         arena.forEach(row => row.fill(0)); //limpa a arena
     }
+    currentPiece = nextPiece;
 }
 
 //rotate: rotaciona a estrutura matrix, que representa a maneira como a peça se posiciona no canvas
